@@ -1,4 +1,4 @@
-# Getting Started With Debezium/Kafka using Docker Compose
+# Getting Started With Debezium and Kafka using Docker Compose
 A simple docker compose for experimenting with Kafka and CDC with Debezium.
 
 ## Installation
