@@ -1,0 +1,60 @@
+version: '2'
+services:
+  zookeeper:
+    image: debezium/zookeeper:0.10
+    ports:
+      - "2888:2888"
+      - "3888:3888"
+    networks:
+      - kafka-network
+  kafka:
+    image: debezium/kafka:0.10
+    depends_on:
+      - zookeeper
+    environment:
+      - ZOOKEEPER_CONNECT=zookeeper
+    ports:
+      - "9092:9092"
+    networks:
+      - kafka-network
+  mysql_kafka:
+    image: debezium/example-mysql:0.10
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=debezium
+      - MYSQL_USER=mysqluser
+      - MYSQL_PASSWORD=mysqlpw
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    networks:
+      - kafka-network
+  connect:
+    image: debezium/connect:0.10
+    depends_on:
+      - zookeeper
+      - kafka
+      - mysql_kafka
+    ports:
+      - "8083:8083"
+    environment:
+      - GROUP_ID=1
+      - CONFIG_STORAGE_TOPIC=my_connect_configs
+      - OFFSET_STORAGE_TOPIC=my_connect_offsets
+      - STATUS_STORAGE_TOPIC=my_connect_statuses
+      - BOOTSTRAP_SERVERS=kafka:9092
+    networks:
+      - kafka-network
+  watcher:
+    image: debezium/kafka:0.10
+    environment:
+      - ZOOKEEPER_CONNECT=zookeeper
+      - KAFKA_BROKER=kafka:9092
+    networks:
+      - kafka-network
+    command: watch-topic -a -k dbserver1.inventory.customers
+
+volumes:
+  mysql-volume:
+networks:
+  kafka-network:
