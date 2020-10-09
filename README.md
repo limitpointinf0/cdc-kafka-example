@@ -39,7 +39,7 @@ update customers set email='NEWEMAIL@acme.com' where id=1005;
 
 ### Cloud 
 - Set up Zookeeper and Kafka in a cloud VM.
-    - Set host_public_IP for docker_compose_cloud.
+    - Set host_public_IP for docker_compose_cloud.yaml
     - Run the following commands
 ```bash
 cd cdc_prem_to_cloud
@@ -56,7 +56,7 @@ python3 consumer.py
 
 ### On-Prem
 - Set up both MySQL and Debezium. 
-    - Set kafka_public_IP in docker_compose_prem
+    - Set kafka_public_IP in docker_compose_prem.yaml
     - Run the following commands
 ```bash
 docker-compose -f docker_compose_prem.yaml up -d mysql_kafka
