@@ -38,7 +38,9 @@ update customers set email='NEWEMAIL@acme.com' where id=1005;
 ## On-Prem to Cloud Demo
 
 ### Cloud 
-- Run the following to set up Zookeeper and Kafka in a cloud VM:
+- Set up Zookeeper and Kafka in a cloud VM.
+    - Set host_public_IP for docker_compose_cloud.
+    - Run the following commands
 ```bash
 cd cdc_prem_to_cloud
 
@@ -53,7 +55,9 @@ python3 consumer.py
 - Check for outputs in data folder after running on-prem steps.
 
 ### On-Prem
-- Set up both MySQL and Debezium. Change kafka public IP in docker_compose_prem and host_public_IP for docker_compose_cloud prior to running the following commands:
+- Set up both MySQL and Debezium. 
+    - Set kafka_public_IP in docker_compose_prem
+    - Run the following commands
 ```bash
 docker-compose -f docker_compose_prem.yaml up -d mysql_kafka
 
