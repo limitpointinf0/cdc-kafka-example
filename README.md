@@ -10,10 +10,15 @@ You may use the following script to install: https://gist.githubusercontent.com/
 - Run all of the following to set up the full environment:
 ```bash
 docker-compose up -d zookeeper
+
 docker-compose up -d kafka
+
 docker-compose up -d mysql_kafka
+
 docker-compose up -d connect
+
 curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d '{ "name": "inventory-connector", "config": { "connector.class": "io.debezium.connector.mysql.MySqlConnector", "tasks.max": "1", "database.hostname": "mysql_kafka", "database.port": "3306", "database.user": "debezium", "database.password": "dbz", "database.server.id": "184054", "database.server.name": "dbserver1", "database.whitelist": "inventory", "database.history.kafka.bootstrap.servers": "kafka:9092", "database.history.kafka.topic": "dbhistory.inventory" } }'
+
 docker compose up watcher
 ```
 - Use a client to connect to MySql with the following:
@@ -36,7 +41,11 @@ update customers set email='NEWEMAIL@acme.com' where id=1005;
 - Run the following to set up Zookeeper and Kafka in a cloud VM:
 ```bash
 docker-compose -f docker_compose_cloud.yaml up -d zookeeper
+
 docker-compose -f docker_compose_cloud.yaml up -d kafka
+```
+- Run the consumer to output events to a JSON file with name as datetime
+```bash
 python3 consumer.py
 ```
 - Check for outputs in data folder after running on-prem steps.
@@ -45,6 +54,7 @@ python3 consumer.py
 - Set up both MySQL and Debezium:
 ```bash
 docker-compose -f docker_compose_prem.yaml up -d mysql_kafka
+
 docker-compose -f docker_compose_prem.yaml up -d connect
 ```
 - Make the following request and don't forget to set the KAFKA PUBLIC IP:
@@ -60,7 +70,10 @@ curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 
 - Run the following queries:
 ```sql
 insert into customers(first_name, last_name, email) values ('FIRST NAME', 'LAST NAME', 'YOUREMAIL@EMAIL.COM');
+
 update customers set email='NEWEMAIL@acme.com' where id=1005;
 ```
+## Sources
+[The 5 minute introduction to Log-Based Change Data Capture with Debezium](https://shekhargulati.com/2019/12/07/the-5-minute-introduction-to-log-based-change-data-capture-with-debezium/)
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
