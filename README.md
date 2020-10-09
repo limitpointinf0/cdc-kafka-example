@@ -63,7 +63,7 @@ docker-compose -f docker_compose_prem.yaml up -d connect
 ```bash
 curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d '{ "name": "inventory-connector", "config": { "connector.class": "io.debezium.connector.mysql.MySqlConnector", "tasks.max": "1", "database.hostname": "mysql_kafka", "database.port": "3306", "database.user": "debezium", "database.password": "dbz", "database.server.id": "184054", "database.server.name": "dbserver1", "database.whitelist": "inventory", "database.history.kafka.bootstrap.servers": "[KAFKA PUBLIC IP]:9092", "database.history.kafka.topic": "dbhistory.inventory" } }'
 ```
-- Use a client to connect to the MySql with the following:
+- Use a client to connect to MySql with the following:
     - host: localhost
     - database: inventory
     - username: root
