@@ -6,7 +6,7 @@ A simple docker compose for experimenting with Kafka and CDC with Debezium.
 You must install docker and docker-compose before you begin.
 You may use the following script to install: https://gist.githubusercontent.com/limitpointinf0/6a9490ff4fef82a0b385d8a07c15a5c7/raw/5caf17d077fe5e17ffa2eba25fc5c0486e0b657d/install_docker.sh 
 
-## Local Demo:
+## Local Demo
 - Run all of the following to set up the full environment:
 ```bash
 docker-compose up -d zookeeper
@@ -35,11 +35,13 @@ update customers set email='NEWEMAIL@acme.com' where id=1005;
 ```  
 - Check the output from the watcher container.
 
-## On-Prem to Cloud Demo [cdc_prem_to_cloud]:
+## On-Prem to Cloud Demo
 
 ### Cloud 
 - Run the following to set up Zookeeper and Kafka in a cloud VM:
 ```bash
+cd cdc_prem_to_cloud
+
 docker-compose -f docker_compose_cloud.yaml up -d zookeeper
 
 docker-compose -f docker_compose_cloud.yaml up -d kafka
