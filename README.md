@@ -53,7 +53,7 @@ python3 consumer.py
 - Check for outputs in data folder after running on-prem steps.
 
 ### On-Prem
-- Set up both MySQL and Debezium:
+- Set up both MySQL and Debezium. Change kafka public IP in docker_compose_prem and host_public_IP for docker_compose_cloud prior to running the following commands:
 ```bash
 docker-compose -f docker_compose_prem.yaml up -d mysql_kafka
 
