@@ -1,0 +1,32 @@
+version: '2'
+services:
+  zookeeper:
+    image: debezium/zookeeper:0.10
+    ports:
+      - "2888:2888"
+      - "3888:3888"
+    networks:
+      - kafka-network
+  kafka:
+    image: debezium/kafka:0.10
+    depends_on:
+      - zookeeper
+    environment:
+      - ZOOKEEPER_CONNECT=zookeeper
+      - ADVERTISED_HOST_NAME=[host public IP] #listen
+      - LISTENERS=PLAINTEXT://0.0.0.0:9092
+    ports:
+      - "9092:9092"
+    networks:
+      - kafka-network
+  watcher:
+    image: debezium/kafka:0.10
+    environment:
+      - ZOOKEEPER_CONNECT=zookeeper
+      - KAFKA_BROKER=kafka:9092
+    networks:
+      - kafka-network
+    command: watch-topic -a -k dbserver1.inventory.customers
+
+networks:
+  kafka-network:
