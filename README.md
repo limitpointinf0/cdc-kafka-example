@@ -48,7 +48,9 @@ docker-compose -f docker_compose_cloud.yaml up -d zookeeper
 
 docker-compose -f docker_compose_cloud.yaml up -d kafka
 ```
-- Run the consumer to output events to a JSON file with name as datetime
+- Set up the consumer to output events to a JSON file with name as datetime.
+    - Change IP to public IP of Kafka
+    - Run the following script
 ```bash
 python3 consumer.py
 ```
