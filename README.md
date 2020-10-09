@@ -1,7 +1,12 @@
-#Getting Started With Debezium/Kafka using Docker Compose
+# Getting Started With Debezium and Kafka using Docker Compose
 A simple docker compose for experimenting with Kafka and CDC with Debezium.
 
-##Instructions:
+## Installation
+
+You must install docker and docker-compose before you begin.
+You may use the following script to install: https://gist.githubusercontent.com/limitpointinf0/6a9490ff4fef82a0b385d8a07c15a5c7/raw/5caf17d077fe5e17ffa2eba25fc5c0486e0b657d/install_docker.sh 
+
+## Instructions:
 
     - docker-compose up -d zookeeper
 
