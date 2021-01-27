@@ -27,5 +27,9 @@ docker-compose --version
 #start dockerd
 sudo dockerd
 
+# install python requirements
+# sudo apt install -y python3-pip
+# sudo pip3 install kafka google-cloud-pubsub
+
 #pull git repo
 git clone https://github.com/limitpointinf0/cdc-kafka-example.git
